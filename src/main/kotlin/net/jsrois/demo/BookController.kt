@@ -1,10 +1,7 @@
 package net.jsrois.demo
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/books")
@@ -16,7 +13,7 @@ class BookController(@Autowired val bookRepository: BookRepository) {
     }
 
     @PostMapping
-    fun addBook(book: Book): Book {
+    fun addBook(@RequestBody book: Book): Book {
         return bookRepository.save(book)
     }
 

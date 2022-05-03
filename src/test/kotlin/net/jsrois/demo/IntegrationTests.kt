@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -47,21 +48,20 @@ class IntegrationTests {
     @Test
     fun `allows to create a new book`() {
         bookRepository.deleteAll()
-        val book = Book("Mujeres, Raza y Clase", "Angela Y. Davis")
+
+        val book = Book(title= "Mujeres, Raza y Clase", author =  "Angela Y. Davis")
 
         api.perform(
             post("/api/books")
                 .content(jacksonObjectMapper().writeValueAsString(book))
+                .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(status().isOk)
 
         val existingBooks = bookRepository.findAll()
+
         assertThat(existingBooks, hasSize(1))
         assertThat(existingBooks.first().title, equalTo("Mujeres, Raza y Clase"))
         assertThat(existingBooks.first().author, equalTo("Angela Y. Davis"))
-
-
-
-
     }
 }
