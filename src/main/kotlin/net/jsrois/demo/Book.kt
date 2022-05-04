@@ -7,7 +7,7 @@ import javax.persistence.GenerationType.IDENTITY
 import javax.persistence.Id
 
 @Entity
-class Book(
+class Book  (
     @GeneratedValue(strategy = IDENTITY)
     @Id
     var id: Long = 0,

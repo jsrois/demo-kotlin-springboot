@@ -17,4 +17,9 @@ class BookController(@Autowired val bookRepository: BookRepository) {
         return bookRepository.save(book)
     }
 
+    @PutMapping("/{id}")
+    fun editBook(@PathVariable id: Long, @RequestBody book: Book): Book {
+        return bookRepository.save(book)
+    }
+
 }
